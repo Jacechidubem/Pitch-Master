@@ -1,16 +1,23 @@
-# React + Vite
+# Pitch Master - Client Side
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This directory contains the Frontend logic for Pitch Master, built with React and Redux.
 
-Currently, two official plugins are available:
+## 📂 Folder Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* **`src/components`**: Reusable UI components (Navbar, PlayerCards, Charts).
+* **`src/pages`**: Full pages (Dashboard, CreateTeam, Compare).
+* **`src/redux`**: State management (Auth Slice).
+* **`src/services`**: API connectors (Axios calls to Backend).
+* **`src/utils`**: Core logic algorithms (Team Analysis & Comparison Math).
 
-## React Compiler
+## 🎨 Key Libraries
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+* **React DnD:** Handles the Drag & Drop logic for the soccer pitch.
+* **Chart.js:** Renders the Radar Charts for team comparisons.
+* **Tailwind CSS:** Handles the responsive dark-mode UI.
 
-## Expanding the ESLint configuration
+## 🚀 Running Locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Runs the app in development mode:
+```bash
+npm start
