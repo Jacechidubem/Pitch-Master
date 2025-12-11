@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { DndProvider } from 'react-dnd'; // <--- NEW IMPORT
-import { TouchBackend } from 'react-dnd-touch-backend'; // <--- NEW IMPORT
+import { DndProvider } from 'react-dnd'; 
+import { TouchBackend } from 'react-dnd-touch-backend'; 
 
 // Pages
 import Home from './pages/home';
@@ -21,6 +21,9 @@ function App() {
   // Config to support BOTH Mouse (Desktop) and Touch (Mobile)
   const backendOptions = {
     enableMouseEvents: true,
+    enableTouchEvents: true,
+    delayTouchStart: 200,    // <--- CRITICAL FIX: Wait 200ms before dragging (Allows scrolling!)
+    ignoreContextMenu: true, // Prevent right-click/long-press menu from appearing
   };
 
   return (
@@ -32,7 +35,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/players" element={<Players />} />
+          <Route path="/players" element={<Players />} /> 
           <Route path="/info/:type" element={<InfoPage />} />
           <Route path="/developer" element={<Developer />} />
 

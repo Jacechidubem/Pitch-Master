@@ -1,3 +1,14 @@
+/* Allow vertical scrolling on the page generally */
+body {
+  touch-action: pan-y; 
+}
+
+/* Ensure draggable items don't block scrolling unless held */
+.draggable-item {
+  touch-action: none;
+}
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
