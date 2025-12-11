@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux'; // <--- Import this
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 
 const Home = () => {
+  // Get the user from Redux state to check if they are logged in
+  const { user } = useSelector((state) => state.auth);
+
   return (
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-dark font-display text-white">
       
@@ -12,14 +16,13 @@ const Home = () => {
 
       <main className="flex flex-col grow">
         
-        {/* 2. Hero Section (The Stadium Background) */}
+        {/* 2. Hero Section */}
         <section className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-40 py-5">
           <div className="mx-auto max-w-[960px]">
             <div className="p-4">
               <div 
                 className="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-center justify-center p-4 text-center border border-border-light shadow-2xl"
                 style={{
-                  // Stadium night shot with a dark overlay
                   backgroundImage: 'linear-gradient(rgba(16, 34, 24, 0.7) 0%, rgba(16, 34, 24, 0.95) 100%), url("https://images.unsplash.com/photo-1522778119026-d647f0565c6a?q=80&w=2070&auto=format&fit=crop")'
                 }}
               >
@@ -32,7 +35,7 @@ const Home = () => {
                   </h2>
                 </div>
                 
-                {/* Primary Action Button */}
+                {/* Primary Action: Directs to Builder */}
                 <Link to="/create-team" className="mt-4">
                   <button className="flex items-center justify-center rounded-lg h-12 px-8 bg-primary text-[#111814] text-base font-bold hover:bg-green-400 hover:scale-105 transition-all duration-300 shadow-[0_0_15px_rgba(19,236,109,0.4)]">
                     Start Building Your XI
@@ -43,7 +46,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* 3. Features Section (Grid) */}
+        {/* 3. Features Section */}
         <section className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-40 py-10">
           <div className="mx-auto max-w-[960px] px-4">
             <div className="flex flex-col gap-4 text-center mb-10">
@@ -54,7 +57,7 @@ const Home = () => {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Feature Card 1 */}
+              {/* Feature Cards... */}
               <div className="flex flex-col gap-4 rounded-xl border border-border-light bg-surface-dark p-6 hover:border-primary transition-colors duration-300 group">
                 <div className="text-primary group-hover:scale-110 transition-transform">
                   <span className="material-symbols-outlined text-4xl">style</span>
@@ -65,7 +68,6 @@ const Home = () => {
                 </div>
               </div>
 
-              {/* Feature Card 2 */}
               <div className="flex flex-col gap-4 rounded-xl border border-border-light bg-surface-dark p-6 hover:border-primary transition-colors duration-300 group">
                 <div className="text-primary group-hover:scale-110 transition-transform">
                   <span className="material-symbols-outlined text-4xl">analytics</span>
@@ -76,7 +78,6 @@ const Home = () => {
                 </div>
               </div>
 
-              {/* Feature Card 3 */}
               <div className="flex flex-col gap-4 rounded-xl border border-border-light bg-surface-dark p-6 hover:border-primary transition-colors duration-300 group">
                 <div className="text-primary group-hover:scale-110 transition-transform">
                   <span className="material-symbols-outlined text-4xl">person</span>
@@ -92,18 +93,29 @@ const Home = () => {
           </div>
         </section>
 
-        {/* 4. Call to Action (Bottom Banner) */}
+        {/* 4. Call to Action (Bottom Banner) - UPDATED */}
         <section className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-40 py-10 pb-20">
           <div className="mx-auto max-w-[960px]">
             <div className="flex flex-col justify-end gap-6 px-4 py-10 text-center bg-gradient-to-t from-surface-dark to-transparent rounded-xl border border-border-dark">
               <h1 className="text-[32px] md:text-4xl font-bold">Ready to Dominate?</h1>
+              
               <div className="flex justify-center">
-                <Link to="/register">
-                  <button className="flex items-center justify-center rounded-lg h-12 px-8 bg-primary text-[#111814] text-base font-bold hover:bg-green-400 hover:scale-105 transition-all">
-                    Sign Up Now
-                  </button>
-                </Link>
+                {/* Dynamic Button: Changes based on login status */}
+                {user ? (
+                   <Link to="/dashboard">
+                    <button className="flex items-center justify-center rounded-lg h-12 px-8 bg-primary text-[#111814] text-base font-bold hover:bg-green-400 hover:scale-105 transition-all">
+                      Go to Dashboard
+                    </button>
+                  </Link>
+                ) : (
+                  <Link to="/register">
+                    <button className="flex items-center justify-center rounded-lg h-12 px-8 bg-primary text-[#111814] text-base font-bold hover:bg-green-400 hover:scale-105 transition-all">
+                      Sign Up Now
+                    </button>
+                  </Link>
+                )}
               </div>
+
             </div>
           </div>
         </section>
