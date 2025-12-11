@@ -1,10 +1,11 @@
 import axios from 'axios';
+import { API_URL } from '../config';
 
-const API_URL = 'http://localhost:5000/api/players';
+const PLAYER_URL = `${API_URL}/players/`;
 
-// Fetch players (with optional search query)
-const getPlayers = async (searchQuery = '') => {
-  const response = await axios.get(`${API_URL}?search=${searchQuery}`);
+// Get players (with optional search)
+const getPlayers = async (searchTerm = '') => {
+  const response = await axios.get(PLAYER_URL + '?search=' + searchTerm);
   return response.data;
 };
 

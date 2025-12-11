@@ -1,13 +1,15 @@
 import axios from 'axios';
+import { API_URL } from '../config'; // Import the dynamic URL
 
-const API_URL = 'http://localhost:5000/api/teams/';
+// Define the specific endpoint for teams
+const TEAM_URL = `${API_URL}/teams/`;
 
 // Create new team
 const createTeam = async (teamData, token) => {
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
-  const response = await axios.post(API_URL, teamData, config);
+  const response = await axios.post(TEAM_URL, teamData, config);
   return response.data;
 };
 
@@ -16,7 +18,25 @@ const getMyTeams = async (token) => {
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
-  const response = await axios.get(API_URL, config);
+  const response = await axios.get(TEAM_URL, config);
+  return response.data;
+};
+
+// Get single team (for editing)
+const getTeamById = async (id, token) => {
+  const config = { 
+    headers: { Authorization: `Bearer ${token}` } 
+  };
+  const response = await axios.get(TEAM_URL + id, config);
+  return response.data;
+};
+
+// Update team
+const updateTeam = async (id, teamData, token) => {
+  const config = { 
+    headers: { Authorization: `Bearer ${token}` } 
+  };
+  const response = await axios.put(TEAM_URL + id, teamData, config);
   return response.data;
 };
 
@@ -25,23 +45,10 @@ const deleteTeam = async (teamId, token) => {
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
-  const response = await axios.delete(API_URL + teamId, config);
+  const response = await axios.delete(TEAM_URL + teamId, config);
   return response.data;
 };
 
-// Get single team
-const getTeamById = async (id, token) => {
-  const config = { headers: { Authorization: `Bearer ${token}` } };
-  const response = await axios.get(API_URL + id, config);
-  return response.data;
-};
-
-// Update team
-const updateTeam = async (id, teamData, token) => {
-  const config = { headers: { Authorization: `Bearer ${token}` } };
-  const response = await axios.put(API_URL + id, teamData, config);
-  return response.data;
-};
 const teamService = {
   createTeam,
   getMyTeams,
