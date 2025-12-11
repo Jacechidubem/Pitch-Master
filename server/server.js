@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json()); // Allows us to accept JSON data in the body
 
 // Routes
-app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/users', require('./routes/authRoutes'));
 app.use('/api/players', require('./routes/playerRoutes'));
 app.use('/api/teams', require('./routes/teamRoutes')); 
 
