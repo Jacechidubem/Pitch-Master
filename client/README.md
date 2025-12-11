@@ -21,3 +21,4 @@ This directory contains the Frontend logic for Pitch Master, built with React an
 Runs the app in development mode:
 ```bash
 npm start
+Open http://localhost:3000 to view it in your browser.
