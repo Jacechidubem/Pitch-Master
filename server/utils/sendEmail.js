@@ -1,26 +1,26 @@
 const nodemailer = require("nodemailer");
 
 const sendEmail = async (options) => {
-  // 1. Create a Transporter
-  // For development, we often use a fake service like Ethereal or Gmail
-  // If using Gmail, you need an "App Password" (not your login password)
+  // Use explicit settings instead of just service: 'gmail'
   const transporter = nodemailer.createTransport({
-    service: "gmail", 
+    host: "smtp.gmail.com",
+    port: 465, // Try 465 (Secure SSL) first. If this fails, we will try 587.
+    secure: true, // true for 465, false for other ports
     auth: {
-      user: process.env.EMAIL_USERNAME, // We will set this in .env
-      pass: process.env.EMAIL_PASSWORD, // We will set this in .env
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD,
     },
+    // Add connection timeout setting (10 seconds)
+    connectionTimeout: 10000, 
   });
 
-  // 2. Define Email Options
   const mailOptions = {
     from: `"Pitch Master Support" <${process.env.EMAIL_USERNAME}>`,
     to: options.email,
     subject: options.subject,
-    html: options.message, // Use HTML for nicer looking emails
+    html: options.message,
   };
 
-  // 3. Send Email
   await transporter.sendMail(mailOptions);
 };
 
