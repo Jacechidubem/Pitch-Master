@@ -2,6 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { DndProvider } from 'react-dnd'; 
 import { TouchBackend } from 'react-dnd-touch-backend'; 
+import { ToastContainer } from 'react-toastify'; // <--- IMPORT THIS
+import 'react-toastify/dist/ReactToastify.css'; // <--- IMPORT CSS
+
+// 1. Import Toastify and its CSS
+
 
 // Pages
 import Home from './pages/home';
@@ -13,6 +18,7 @@ import CompareTeams from './pages/CompareTeams';
 import Players from './pages/Players';
 import InfoPage from './pages/InfoPage';
 import Developer from './pages/Developer';
+import Verify from './pages/Verify';
 
 // Components
 import ProtectedRoute from './components/auth/ProtectedRoute';
@@ -29,7 +35,11 @@ function App() {
   return (
     // Wrap the entire app in the DndProvider
     <DndProvider backend={TouchBackend} options={backendOptions}>
+      <ToastContainer position="top-right" autoClose={3000} theme="dark" />
       <Router>
+        
+      
+
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Home />} />
@@ -38,6 +48,7 @@ function App() {
           <Route path="/players" element={<Players />} /> 
           <Route path="/info/:type" element={<InfoPage />} />
           <Route path="/developer" element={<Developer />} />
+          <Route path="/verify/:token" element={<Verify />} />
 
           {/* Private Routes (Must be logged in) */}
           <Route element={<ProtectedRoute />}>

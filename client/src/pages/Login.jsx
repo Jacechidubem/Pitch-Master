@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux'; // 1. Import Redux hooks
+import { useSelector, useDispatch } from 'react-redux'; 
 import { useNavigate, Link } from 'react-router-dom';
-import { login, reset } from '../redux/slices/authSlice'; // 2. Import login action
+import { toast } from 'react-toastify'; // 1. Import Toast
+import { login, reset } from '../redux/slices/authSlice'; 
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 
@@ -16,18 +17,18 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // 3. Get global state (loading, error, user)
+  // Get global state (loading, error, user)
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
 
   useEffect(() => {
     if (isError) {
-      alert(message); // Show alert if password is wrong
+      toast.error(message); // 2. Changed from alert() to toast.error()
     }
 
     if (isSuccess || user) {
-      navigate('/create-team'); // Redirect to dashboard if successful
+      navigate('/dashboard'); // Changed redirect to Dashboard (standard flow)
     }
 
     dispatch(reset());
@@ -43,18 +44,18 @@ const Login = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const userData = { email, password };
-    dispatch(login(userData)); // 4. Dispatch the actual login action
+    dispatch(login(userData));
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-background-dark font-display text-white">
+    <div className="flex flex-col min-h-screen bg-[#0d1110] font-sans text-white">
       <Navbar />
       
       <main className="flex-grow flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-md space-y-8 bg-surface-dark p-8 rounded-xl border border-border-light shadow-2xl">
+        <div className="w-full max-w-md space-y-8 bg-[#121614] p-8 rounded-xl border border-[#2a3b32] shadow-2xl">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-white">Welcome Back</h2>
-            <p className="mt-2 text-sm text-text-secondary">
+            <h2 className="text-3xl font-bold text-white uppercase italic tracking-tighter">Welcome Back</h2>
+            <p className="mt-2 text-sm text-gray-400">
               Sign in to manage your teams and comparisons
             </p>
           </div>
@@ -68,7 +69,7 @@ const Login = () => {
                   name="email"
                   value={email}
                   onChange={onChange}
-                  className="mt-1 block w-full rounded-lg bg-background-dark border border-border-dark px-3 py-2 text-white focus:border-primary focus:outline-none"
+                  className="mt-1 block w-full rounded-lg bg-[#1e2622] border border-[#2a3b32] px-3 py-2 text-white focus:border-[#13ec6d] focus:outline-none transition-colors"
                   placeholder="striker@pitchmaster.com"
                   required
                 />
@@ -81,7 +82,7 @@ const Login = () => {
                   name="password"
                   value={password}
                   onChange={onChange}
-                  className="mt-1 block w-full rounded-lg bg-background-dark border border-border-dark px-3 py-2 text-white focus:border-primary focus:outline-none"
+                  className="mt-1 block w-full rounded-lg bg-[#1e2622] border border-[#2a3b32] px-3 py-2 text-white focus:border-[#13ec6d] focus:outline-none transition-colors"
                   placeholder="••••••••"
                   required
                 />
@@ -91,15 +92,15 @@ const Login = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative flex w-full justify-center rounded-lg bg-primary px-4 py-3 text-sm font-bold text-[#111814] hover:bg-green-400 disabled:opacity-50 transition-all"
+              className="group relative flex w-full justify-center rounded bg-[#13ec6d] px-4 py-3 text-sm font-black uppercase tracking-wider text-[#0d1110] hover:bg-[#10d460] disabled:opacity-50 transition-transform active:scale-95 shadow-[0_0_20px_rgba(19,236,109,0.2)]"
             >
               {isLoading ? 'Signing In...' : 'Sign In'}
             </button>
           </form>
 
-          <p className="text-center text-sm text-text-secondary">
+          <p className="text-center text-sm text-gray-500">
             Don't have an account?{' '}
-            <Link to="/register" className="font-medium text-primary hover:text-green-400 transition-colors">
+            <Link to="/register" className="font-bold text-[#13ec6d] hover:underline transition-colors">
               Sign up
             </Link>
           </p>
