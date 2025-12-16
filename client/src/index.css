@@ -30,3 +30,64 @@ body {
 .material-symbols-outlined.fill {
   font-variation-settings: 'FILL' 1;
 }
+
+/* --- LANDSCAPE WARNING OVERLAY --- */
+.landscape-warning {
+  display: none; /* Hidden by default */
+}
+
+/* Show ONLY on mobile (max-width 768px) AND Portrait orientation */
+@media only screen and (max-width: 768px) and (orientation: portrait) {
+  .landscape-warning {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0d1110; /* Your app's dark background */
+    z-index: 9999; /* Sit on top of everything */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .landscape-warning .icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: spin 2s infinite linear;
+  }
+
+  .landscape-warning h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #13ec6d; /* Your green accent color */
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+  
+  /* Prevent scrolling when warning is active */
+  body {
+    overflow: hidden;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-90deg); } /* Mimic phone rotation */
+  100% { transform: rotate(-90deg); }
+}
+/* --- SCROLLING FIX FOR MOBILE --- */
+/* Apply this to your draggable player cards */
+.player-card, .draggable-item { 
+  /* This tells the browser: "Vertical swipes handle scrolling, don't block them!" */
+  touch-action: pan-y !important; 
+}
+
+/* Ensure the main container scrolls smoothly */
+html, body {
+  overscroll-behavior-y: none; /* Stops the "rubber band" bounce effect on mobile */
+}

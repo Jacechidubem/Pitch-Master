@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { toast } from 'react-toastify'; // 1. Import Toast
+import { toast } from 'react-toastify';
 import { register, reset } from '../redux/slices/authSlice';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -25,13 +25,14 @@ const Register = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error(message); // 2. Replace alert with Toast Error
+      toast.error(message);
     }
 
+    // UPDATED: If registration is successful, they are now Auto-Logged In.
+    // So we redirect them straight to the main app (Create Team), not Login.
     if (isSuccess || user) {
-      // 3. Show Success Message & Redirect to Login
-      toast.success("Registration Successful! Please check your email to verify account.");
-      navigate('/login'); 
+      toast.success("Welcome to the Squad! Let's build your team.");
+      navigate('/create-team'); // <--- Redirects to the Dashboard/Team creation
     }
 
     dispatch(reset());
@@ -48,7 +49,7 @@ const Register = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      toast.error('Passwords do not match'); // 4. Replace password alert
+      toast.error('Passwords do not match');
     } else {
       const userData = { name, email, password };
       dispatch(register(userData));

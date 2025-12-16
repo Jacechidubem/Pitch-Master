@@ -2,11 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { DndProvider } from 'react-dnd'; 
 import { TouchBackend } from 'react-dnd-touch-backend'; 
-import { ToastContainer } from 'react-toastify'; // <--- IMPORT THIS
-import 'react-toastify/dist/ReactToastify.css'; // <--- IMPORT CSS
-
-// 1. Import Toastify and its CSS
-
+import { ToastContainer } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
 // Pages
 import Home from './pages/home';
@@ -22,14 +19,15 @@ import Verify from './pages/Verify';
 
 // Components
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import LandscapeWarning from './components/layout/LandscapeWarning'; // <--- 1. Import Warning Component
 
 function App() {
   // Config to support BOTH Mouse (Desktop) and Touch (Mobile)
   const backendOptions = {
     enableMouseEvents: true,
     enableTouchEvents: true,
-    delayTouchStart: 200,    // <--- CRITICAL FIX: Wait 200ms before dragging (Allows scrolling!)
-    ignoreContextMenu: true, // Prevent right-click/long-press menu from appearing
+    delayTouchStart: 500,    // Wait 200ms before dragging (Allows scrolling!)
+    ignoreContextMenu: true, // Prevent right-click/long-press menu
   };
 
   return (
@@ -38,7 +36,8 @@ function App() {
       <ToastContainer position="top-right" autoClose={3000} theme="dark" />
       <Router>
         
-      
+        {/* 2. Add Landscape Warning Here (Protects all pages) */}
+        <LandscapeWarning /> 
 
         <Routes>
           {/* Public Routes */}
